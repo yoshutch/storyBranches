@@ -1,0 +1,30 @@
+@(stories: List[Story], storyForm: Form[Story])
+
+@import helper._
+
+@main("Stories") {
+
+    <h1>@stories.size() Stories</h1>
+
+    <ul>
+        @for(story <- stories){
+            <h2>@story.storyName</h2>
+            <p>@story.author</p>
+
+            @form(routes.Application.deleteStory(story.storyId)) {
+            <input type="submit" value="Delete">
+            }
+        }
+    </ul>
+
+    <h2>Add a new Story</h2>
+    @form(routes.Application.newStory()) {
+
+        @inputText(storyForm("storyName"))
+        @inputText(storyForm("author"))
+
+        <input type="submit" value="Create">
+
+    }
+
+}
